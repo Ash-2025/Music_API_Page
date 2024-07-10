@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Music API</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+        integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+    <style>
+        pre {
+            font-family: 'Inter';
+        }
+
+        input::placeholder {
+            color: black;
+        }
+    </style>
+</head>
+
+<body class="bg-purple-600 scroll-smooth ">
+    <main class="w-full h-screen flex flex-col items-cente justify-start">
+        <h1 class="text-[3rem] md:text-[5rem] font-bold text-white text-center">
+            MUSIC API
+        </h1>
+        <p class="text-[1.4rem] md:text-[2rem] mb-5 text-white text-center">
+            Sign up to get API KEY on your Email
+        </p>
+        <form class="max-w-sm mx-auto" id="signup">
+            <div class="mb-5">
+                <label for="username" class="block mb-2 text-sm font-medium dark:text-white">Your username</label>
+                <input type="text" id="username" name="username"
+                    class=" bg-purple-100 outline-none rounded-lg block w-full p-2.5" placeholder="username" required />
+            </div>
+
+            <div class="mb-5">
+                <label for="email" class="block mb-2 text-sm font-medium dark:text-white">Your email</label>
+                <input type="email" id="email" name="email"
+                    class="bg-purple-100 outline-none rounded-lg block w-full p-2.5 " placeholder="name@gmail.com"
+                    required />
+            </div>
+
+            <div class="mb-5">
+                <label for="password" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Your
+                    password</label>
+                <input type="password" id="password" name="password"
+                    class="bg-purple-100 outline-none rounded-lg block w-full p-2.5 placeholder:text-white"
+                    maxlength="12" required />
+            </div>
+
+            <button type="submit"
+                class="text-white bg-black font-medium text-[1.2rem] rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center">Submit</button>
+        </form>
+        <span class="text-center text-purple-100 text-xl font-medium" id="msg">
+
+        </span>
+        <div class="container mx-auto p-8">
+            <h1 class="text-4xl font-bold mb-8 text-center md:text-left">Music API Documentation</h1>
+
+            <div class="bg-purple-300 shadow-md rounded-lg p-6 mb-6">
+                <h2 class="text-2xl font-bold mb-4">Base URL</h2>
+                <p class="text-lg"><code>https://musicapi-production-ef9e.up.railway.app</code></p>
+            </div>
+
+
+            <div class="bg-purple-300 shadow-md rounded-lg p-6 mb-6">
+                <h2 class="text-2xl font-bold mb-4">Sign In</h2>
+                <p class="text-lg">Go to <code>/signIn</code> route to get an API key. The API key will be sent to your
+                    email.</p>
+            </div>
+
+            <div class="bg-purple-300 shadow-md rounded-lg p-6 mb-6">
+                <h2 class="text-2xl font-bold mb-4">Free Routes</h2>
+                <ul class="list-disc list-inside text-lg">
+                    <li><code>/music</code></li>
+                    <li><code>/playlistfree/:playlist_name</code></li>
+                </ul>
+            </div>
+
+            <div class="bg-purple-300 shadow-md rounded-lg p-6 mb-6">
+                <h2 class="text-2xl font-bold mb-4">Example JSON Response</h2>
+                <div class="relative">
+                    <pre id="jsonResponse" class="bg-purple-400 p-4 rounded-xl overflow-x-auto font-semibold text-xl">
+    {
+        "_id": "666bf4fa8997e991bdddb01d",
+        "artist_names": "ajay-atul, sonu nigam",
+        "track_name": "abhi mujh mein kahin",
+        "album_name": "agneepath (original motion picture soundtrack)",
+        "image_url": "https://i.scdn.co/image/ab67616d0000b273b22e21de789378f223e1795f",
+        "image_height": 640,
+        "image_width": 640,
+        "preview_url": "https://p.scdn.co/mp3-preview/0a6290d1dbe5e408e50487c4e6f255e6b9e77dcc?cid=a003ddf0b3d946b98adce4bdfb837365"
+    }
+                    </pre>
+                    <button class="absolute top-2 right-4 copy-btn" id="jsonbtn">
+                        <i class="fa-regular fa-clipboard fa-2x"></i>
+                    </button>
+                </div>
+            </div>
+
+            <div class="bg-purple-300 shadow-md rounded-lg p-6 mb-6">
+                <h2 class="text-2xl font-bold mb-4 font-inter">Routes with API Key</h2>
+                <ul class="list-disc list-inside text-lg">
+                    <li><code>/:api_key/artist/:artist_name</code></li>
+                    <li><code>/:api_key/songs/:song_name</code></li>
+                    <li><code>/:api_key/album/:album_name</code></li>
+                    <li><code>/playlist/:playlist_name/:api_key</code> (to access full playlist)</li>
+                </ul>
+            </div>
+
+            <div class="bg-purple-300 shadow-md rounded-lg p-6 mb-6">
+                <h2 class="text-2xl font-bold mb-4">Available Playlists</h2>
+                <ul class="list-disc list-inside text-lg">
+                    <li>rap91</li>
+                    <li>bollywoodcentral</li>
+                    <li>bollywoodmush</li>
+                    <li>punjabi101</li>
+                </ul>
+            </div>
+
+            <div class="bg-purple-300 shadow-md rounded-lg p-6">
+                <h2 class="text-2xl font-bold mb-4">Important Notes</h2>
+                <p class="text-lg">Use only the first name or last name for artists, albums, and songs for now.</p>
+            </div>
+        </div>
+    </main>
+
+
+    <script>
+        const copy = document.getElementById('jsonResponse').innerText;
+        const jsonbtn = document.getElementById('jsonbtn');
+
+        jsonbtn.addEventListener('click', () => {
+            navigator.clipboard.writeText(copy).then(() => {
+                alert('JSON response copied to clipboard!');
+            }).catch(err => {
+                console.error('Error copying text: ', err);
+            });
+        })
+
+        const url = "https://musicapi-production-ef9e.up.railway.app/signIn";
+        const form = document.getElementById('signup')
+        form.addEventListener('submit', async function (e) {
+            e.preventDefault();
+
+            let email = document.getElementsByName('email')[0].value;
+            function ismail(email) {
+                return email.includes("@gmail.com");
+            }
+
+            const formdata = new FormData(form)
+            const data = {
+                username: formdata.get('username'),
+                email: formdata.get('email'),
+                password: formdata.get('password')
+            }
+
+            try {
+                if (!ismail(email)) {
+                    document.getElementById('msg').innerText = 'Check Details and try again';
+                }
+                else {
+                    const res = await fetch(url, {
+                        method: 'POST',
+                        headers: {
+                            'content-type': 'application/json'
+                        },
+                        body: JSON.stringify(data)
+                    })
+                    if (!res.ok) {
+                        throw new Error('Network response was not ok');
+                        document.getElementById('msg').innerText = 'Sign-up not successful! Check Details and try again';
+                    }
+
+                    const result = await res.json();
+                    console.log('Success:', result);
+                    document.getElementById('msg').innerText = 'Sign-up successful! Check your email for API Key';
+                }
+            } catch (e) {
+                console.log(e);
+            }
+        })
+    </script>
+</body>
+
+</html>
